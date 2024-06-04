@@ -95,15 +95,26 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
-    });
 
-    let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
-    errorBtns[0].addEventListener('click', x => {
-      let firstNum = document.querySelector('#first-num').value;
-      console.log("Console log demo");
+      try {
+        if (isNaN(firstNum) || isNaN(secondNum)) {
+          throw new Error("Please enter two numbers");
+        }
+        if ((operator == '/') && (secondNum == 0)) {
+          throw new Error("Attempted divide by 0")
+        }
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch (error) {
+        output.innerHTML = "Error: " + error.message;
+      } finally {
+        console.log("Calculation attempt completed");
+      }
     });
     
+    let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+    errorBtns[0].addEventListener('click', x => {
+      console.log("Console log demo");
+    });
     errorBtns[1].addEventListener('click', x => {
       console.error("Console error demo");
     });
@@ -174,6 +185,8 @@
       }
       deep();
     });
+
+
   </script>
 </body>
 
