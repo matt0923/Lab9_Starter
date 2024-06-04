@@ -88,6 +88,20 @@
   </main>
 
   <script>
+    class InvalidInputError extends Error {
+      constructor(message) {
+          super(message);
+          this.name = "InvalidInputError";
+      }
+    }
+
+    class DivideByZeroError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "DivideByZeroError";
+      }
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -98,19 +112,19 @@
 
       try {
         if (isNaN(firstNum) || isNaN(secondNum)) {
-          throw new Error("Please enter two numbers");
+          throw new InvalidInputError("Please enter two numbers");
         }
         if ((operator == '/') && (secondNum == 0)) {
-          throw new Error("Attempted divide by 0")
+          throw new DivideByZeroError("Attempted divide by 0")
         }
         output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
       } catch (error) {
-        output.innerHTML = "Error: " + error.message;
+        output.innerHTML = "Error: " + error.name;
       } finally {
         console.log("Calculation attempt completed");
       }
     });
-    
+
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
     errorBtns[0].addEventListener('click', x => {
       console.log("Console log demo");
