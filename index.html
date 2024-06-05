@@ -87,7 +87,17 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "6f5078d65afe482893691234e77371d6"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                          
+
+  <script>
+                        
     class InvalidInputError extends Error {
       constructor(message) {
           super(message);
@@ -199,7 +209,15 @@
       }
       deep();
     });
+    
+    errorBtns[14].addEventListener('click', x => {
+      boom;
+    });
 
+    window.onerror = function (message, source, lineno, colno, error)  {
+            console.log("Sadly an error happened my friend", error);
+            return true; 
+        };
 
   </script>
 </body>
